@@ -1,12 +1,13 @@
-// ** vector ver_0.2
+// ** vector ver_0.3
 #include <iostream>
 
 using namespace std;
 
 int main(void)
 {
+	// what For test Check Change
 	int test_Chick;
-	test_Chick = 20;
+	test_Chick = 50;
 	return 0;
 }
 /*****************************************************
