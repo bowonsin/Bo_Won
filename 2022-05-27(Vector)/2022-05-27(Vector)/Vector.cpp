@@ -1,11 +1,10 @@
+// ** vector ver_0.2
 #include <iostream>
-#include <vector>
 
 using namespace std;
 
 int main(void)
 {
-	a
 	return 0;
 }
 /*****************************************************
