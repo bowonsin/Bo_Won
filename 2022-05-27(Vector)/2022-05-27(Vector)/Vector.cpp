@@ -1,4 +1,4 @@
-// ** vector ver_0.2
+// ** vector ver_0.4
 #include <iostream>
 
 using namespace std;
