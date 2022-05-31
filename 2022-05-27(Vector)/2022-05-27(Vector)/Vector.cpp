@@ -5,9 +5,8 @@ using namespace std;
 
 int main(void)
 {
-	//test 
-	int test;
-	cout << test;
+	int test_Chick;
+	test_Chick = 20;
 	return 0;
 }
 /*****************************************************
