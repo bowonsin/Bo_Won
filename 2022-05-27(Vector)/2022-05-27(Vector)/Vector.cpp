@@ -5,6 +5,9 @@ using namespace std;
 
 int main(void)
 {
+	//test 
+	int test;
+	cout << test;
 	return 0;
 }
 /*****************************************************
