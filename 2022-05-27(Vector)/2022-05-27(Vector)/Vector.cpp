@@ -2,6 +2,99 @@
 #include <iostream>
 using namespace std;
 
+// 원소의 개수
+int Size = 0;
+
+int Capacity = 0;
+// ** 컨테이너
+int* Vector = nullptr;
+
+void push_back(const int& _Value);
+
+int main(void)
+{
+	push_back(100);
+	push_back(200);
+
+	// 누적된 횟수 만큼 비효율
+	for (int i = 0; i < 10; ++i)
+		push_back(i * 100 + 100);
+
+	for (int i = 0; i < Size; ++i)
+		cout << Vector[i] << endl;
+
+	return 0;
+}
+
+void push_back(const int & _Value)
+{
+	// 수정후 
+
+	// 케퍼시티 = 수용량 ,사이즈 = 원소의 개수 
+	// 효율적으로 바꿀것
+	// 케퍼시티가 함수 호추할때마다가 아닌 size 와 케퍼시티가 값이 같아질때 증가 하는걸로 바꿀 것
+	Capacity += (Capacity <= 3) ? 1 : Capacity >> 1; // 쉬프트 연산자로 나누기 2
+
+	int* Temp = new int[Capacity];
+
+	for (int i = 0; i < Size; ++i)
+		Temp[i] = Vector[i];
+
+	if (Vector)
+	{
+		delete Vector;
+		Vector = nullptr;
+	}
+
+	Temp[Size] = _Value;
+	++Size;
+
+	Vector = Temp;
+
+	/*
+		내가 한거
+	++Size;
+	int* tmp = new int[Size];
+
+	if (tmp != nullptr)
+	{
+		for (int i = 0; i < Size - 1; ++i)
+			tmp[i] = Vector[i] ;
+	}
+	delete Vector;
+	Vector = tmp;
+
+	Vector[Size - 1] = _Value;
+	*/
+	/*
+		// 선생님이 한 PushBack
+
+		
+		// 수정전
+		if(Size <= 0)
+		{
+		++Size;
+		Vector = new int[Size];
+		Vector[Size - 1] = _Value;
+		}
+		else
+		{
+		Size += Size * 0.5f;
+		int * Temp = new int[Size];
+		for (int i = 0; i< Size -1; ++i)
+		Temp[i] = Vector[i];
+
+		delete Vecotr; // 메모리 누수 
+		Vector = nullptr;
+
+		Tenp[Size - 1] = _Value;
+		Vector = Temp;
+		}
+	*/
+}
+
+// MSDL 
+
 /*
 	// ** 1. 데이터 추가 (새로운 공간 확보).
 	// ** 2. 데이터 삭제.
@@ -13,17 +106,17 @@ using namespace std;
 /*
 	2의 보수
 	( 16 -6 = 16 + ( -6))
-	-6-> 
+	-6->
 
 	2의 보수 시작
 	0 0 0 0 0 1 1 0 = 6
 	1 1 1 1 1 1 1 1  -> 값이 반전된다
 	------------------
 	1 1 1 1 1 0 0 1
-	11111001 + 1 
+	11111001 + 1
 	------------------
-	11111010 = -6 -> 이것이 2의 보수 
-*/
+	11111010 = -6 -> 이것이 2의 보수
+*/  
 /*
 // 메인 주제 -> 비트 연산으로 할수 있으면 최대한 비트 연산자를 사용해라
 // 어떻게 뺴기 2의 보수
@@ -91,17 +184,9 @@ int* Vector = new int[size];
 
 Vector[liter];
 */
-
-
-
-
-int main(void)
-{
-
+/*
 	// 배열은 아니지만 배열처럼 사욯할 수 있따.
-	int size = 10;
-	int liter = 0;
-	int* Vector = new int[size];
+
 
 	// 사용할때 문제가 있음 -> 앞으로 문제가 생길 수 있다.
 	// 크기 값 ( size)을 넘었을 때 문제가 생길 수 있다.
@@ -113,8 +198,4 @@ int main(void)
 
 	for (int i = 0; i < 11; i++)
 		cout << Vector[liter++] << endl;
-
-	return 0;
-}
-
-// MSDL 
+*/
