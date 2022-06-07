@@ -33,23 +33,32 @@ void push_back(const int & _Value)
 	// 케퍼시티 = 수용량 ,사이즈 = 원소의 개수 
 	// 효율적으로 바꿀것
 	// 케퍼시티가 함수 호추할때마다가 아닌 size 와 케퍼시티가 값이 같아질때 증가 하는걸로 바꿀 것
-	Capacity += (Capacity <= 3) ? 1 : Capacity >> 1; // 쉬프트 연산자로 나누기 2
-
-	int* Temp = new int[Capacity];
-
-	for (int i = 0; i < Size; ++i)
-		Temp[i] = Vector[i];
-
-	if (Vector)
+	if (Size == Capacity)
 	{
-		delete Vector;
-		Vector = nullptr;
+		Capacity += (Capacity <= 3) ? 1 : Capacity >> 1; // 쉬프트 연산자로 나누기 2
+
+		int* Temp = new int[Capacity];
+
+		for (int i = 0; i < Size; ++i)
+			Temp[i] = Vector[i];
+
+		if (Vector)
+		{
+			delete Vector;
+			Vector = nullptr;
+		}
+
+		Temp[Size] = _Value;
+		++Size;
+		Vector = Temp;
+
+	}
+	else
+	{
+		Vector[Size] = _Value;
+		++Size;
 	}
 
-	Temp[Size] = _Value;
-	++Size;
-
-	Vector = Temp;
 
 	/*
 		내가 한거
