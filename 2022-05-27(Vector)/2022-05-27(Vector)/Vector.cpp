@@ -20,6 +20,8 @@ int end();
 int begin();
 int back();
 void Erase(const int& _value);
+
+// 특정 위치에 값 넣기
 void Insert(const int & _Where);
 
 int main(void)
@@ -41,7 +43,7 @@ int main(void)
 }
 void Insert(const int& _Where)
 {
-
+	
 }
 
 
