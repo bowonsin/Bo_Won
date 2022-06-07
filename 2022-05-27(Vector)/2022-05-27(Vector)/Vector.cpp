@@ -1,4 +1,4 @@
-// ** vector ver_0.3
+// ** vector ver_0.9
 #include <iostream>
 using namespace std;
 
@@ -9,21 +9,73 @@ int Capacity = 0;
 // ** 컨테이너
 int* Vector = nullptr;
 
+//** 컨테이너 마지막 위치에 값을 추가
 void push_back(const int& _Value);
+
+// ** 컨테이너 마지막 위치에 있는 값을 삭제
+void pop_back();
+
+int front();
+int end();
+int begin();
+int back();
+void Erase(const int& _value);
+void Insert(const int & _Where);
 
 int main(void)
 {
-	push_back(100);
-	push_back(200);
 
 	// 누적된 횟수 만큼 비효율
 	for (int i = 0; i < 10; ++i)
 		push_back(i * 100 + 100);
+	
+	pop_back();
 
+	Erase(3);
 	for (int i = 0; i < Size; ++i)
 		cout << Vector[i] << endl;
 
+
+	// 출력
 	return 0;
+}
+void Insert(const int& _Where)
+{
+
+}
+
+
+void Erase(const int& _value)
+{
+	// 특정 위치에 있는 원소를 삭제 하고 정렬
+	for (int i = _value + (-1); i < Size - 1; ++i)
+	{
+		Vector[i] = Vector[i + 1];
+	}
+}
+
+int begin()
+{
+	return front();
+}
+int back()
+{
+	return Vector[Size - 1];
+}
+
+int front()
+{
+	return Vector[0] ;
+}
+int end()
+{
+	return Vector[Size];
+}
+
+void pop_back()
+{
+	Vector[Size] = NULL;
+	--Size;
 }
 
 void push_back(const int & _Value)
@@ -33,11 +85,15 @@ void push_back(const int & _Value)
 	// 케퍼시티 = 수용량 ,사이즈 = 원소의 개수 
 	// 효율적으로 바꿀것
 	// 케퍼시티가 함수 호추할때마다가 아닌 size 와 케퍼시티가 값이 같아질때 증가 하는걸로 바꿀 것
-	if (Size == Capacity)
+	if (Size >= Capacity)
 	{
 		Capacity += (Capacity <= 3) ? 1 : Capacity >> 1; // 쉬프트 연산자로 나누기 2
 
-		int* Temp = new int[Capacity];
+		int* Temp = new int[Capacity + 1];
+
+		// NULL 로 싹다 초기화 
+		for (int i = 0; i < Capacity; ++i)
+			Temp[i] = NULL;
 
 		for (int i = 0; i < Size; ++i)
 			Temp[i] = Vector[i];
@@ -49,16 +105,18 @@ void push_back(const int & _Value)
 		}
 
 		Temp[Size] = _Value;
-		++Size;
 		Vector = Temp;
-
 	}
 	else
-	{
 		Vector[Size] = _Value;
-		++Size;
-	}
 
+
+	cout << Vector[Size] << endl;
+	cout << " Size : " << Size << endl;
+	cout << " Capacity : " << Capacity << endl;
+	cout << endl;
+
+	++Size;
 
 	/*
 		내가 한거
@@ -101,6 +159,7 @@ void push_back(const int & _Value)
 		}
 	*/
 }
+
 
 // MSDL 
 
