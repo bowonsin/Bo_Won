@@ -19,10 +19,10 @@ int front();
 int end();
 int begin();
 int back();
-void Erase(const int& _value);
+void Erase(const int& _Where);
 
 // 특정 위치에 값 넣기
-void Insert(const int & _Where);
+void Insert(int  _Where, const int& _Value);
 
 int main(void)
 {
@@ -30,7 +30,7 @@ int main(void)
 	// 누적된 횟수 만큼 비효율
 	for (int i = 0; i < 10; ++i)
 		push_back(i * 100 + 100);
-	
+
 	pop_back();
 
 	Erase(3);
@@ -41,18 +41,48 @@ int main(void)
 	// 출력
 	return 0;
 }
-void Insert(const int& _Where)
+void Insert(int _Where, const int& _Value)
 {
-	
+	// 사이 에 끼어 넣는데 부족할때 추가 
+	if (Size == Capacity)
+		Capacity += (Capacity <= 3) ? 1 : Capacity >> 1;
+
+	int* Temp = new int[Capacity + 1];
+
+	// NULL 로 싹다 초기화 
+	for (int i = 0; i < Capacity; ++i)
+		Temp[i] = NULL;
+
+	for (int i = 0, j = 0; i < Size; ++i, ++j)
+	{
+		if (i == _Where)
+		{
+			Temp[i] = _Value;
+			--j;
+		}
+		else
+			Temp[i] = Vector[j];
+	}
+
+	if (Vector)
+	{
+		delete Vector;
+		Vector = nullptr;
+	}
+
+	Temp[Size] = _Value;
+	Vector = Temp;
+
 }
 
 
-void Erase(const int& _value)
+void Erase(const int& _Where)
 {
 	// 특정 위치에 있는 원소를 삭제 하고 정렬
-	for (int i = _value + (-1); i < Size - 1; ++i)
+	for (int i = _Where + (-1); i < Size - 1; ++i)
 	{
 		Vector[i] = Vector[i + 1];
+
 	}
 }
 
@@ -67,7 +97,7 @@ int back()
 
 int front()
 {
-	return Vector[0] ;
+	return Vector[0];
 }
 int end()
 {
@@ -80,7 +110,7 @@ void pop_back()
 	--Size;
 }
 
-void push_back(const int & _Value)
+void push_back(const int& _Value)
 {
 	// 수정후 
 
@@ -138,7 +168,7 @@ void push_back(const int & _Value)
 	/*
 		// 선생님이 한 PushBack
 
-		
+
 		// 수정전
 		if(Size <= 0)
 		{
@@ -153,7 +183,7 @@ void push_back(const int & _Value)
 		for (int i = 0; i< Size -1; ++i)
 		Temp[i] = Vector[i];
 
-		delete Vecotr; // 메모리 누수 
+		delete Vecotr; // 메모리 누수
 		Vector = nullptr;
 
 		Tenp[Size - 1] = _Value;
@@ -186,7 +216,7 @@ void push_back(const int & _Value)
 	11111001 + 1
 	------------------
 	11111010 = -6 -> 이것이 2의 보수
-*/  
+*/
 /*
 // 메인 주제 -> 비트 연산으로 할수 있으면 최대한 비트 연산자를 사용해라
 // 어떻게 뺴기 2의 보수
