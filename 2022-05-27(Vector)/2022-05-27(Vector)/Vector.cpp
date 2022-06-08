@@ -2,27 +2,31 @@
 #include <iostream>
 using namespace std;
 
-// 원소의 개수
+//** 원소의 개수
 int Size = 0;
 
+//** 최대 수용 개수
 int Capacity = 0;
 // ** 컨테이너
 int* Vector = nullptr;
 
-//** 컨테이너 마지막 위치에 값을 추가
+// ** 컨테이너 마지막 위치에 값을 추가
 void push_back(const int& _Value);
 
 // ** 컨테이너 마지막 위치에 있는 값을 삭제
 void pop_back();
 
+// **가장 앞쪽에 있는 원소 
 int front();
+
+// **가장 뒤쪽에 있는 원소 
 int end();
-int begin();
-int back();
+
+// ** 해당 위치 값 제가
 void Erase(const int& _Where);
 
 // 특정 위치에 값 넣기
-void Insert(int  _Where, const int& _Value);
+void Insert(const int& _Where, const int& _Value);
 
 int main(void)
 {
@@ -34,45 +38,63 @@ int main(void)
 	pop_back();
 
 	Erase(3);
-	for (int i = 0; i < Size; ++i)
-		cout << Vector[i] << endl;
 
+	Insert(2, 10);
+
+	for (int i = 0; i < Size; i++)
+		cout << Vector[i] << endl;
 
 	// 출력
 	return 0;
 }
-void Insert(int _Where, const int& _Value)
+void Insert(const int& _Where, const int& _Value)
 {
-	// 사이 에 끼어 넣는데 부족할때 추가 
-	if (Size == Capacity)
-		Capacity += (Capacity <= 3) ? 1 : Capacity >> 1;
-
-	int* Temp = new int[Capacity + 1];
-
-	// NULL 로 싹다 초기화 
-	for (int i = 0; i < Capacity; ++i)
-		Temp[i] = NULL;
-
-	for (int i = 0, j = 0; i < Size; ++i, ++j)
-	{
-		if (i == _Where)
-		{
-			Temp[i] = _Value;
-			--j;
-		}
-		else
-			Temp[i] = Vector[j];
-	}
-
 	if (Vector)
 	{
-		delete Vector;
-		Vector = nullptr;
+		// 사이 에 끼어 넣는데 부족할때 추가 
+		if (Size >= Capacity)
+			Capacity += (Capacity <= 3) ? 1 : Capacity >> 1;
+
+		int* Temp = new int[Capacity + 1];
+
+		// NULL 로 싹다 초기화 
+		for (int i = 0; i < Capacity; ++i)
+			Temp[i] = NULL;
+
+		for (int i = 0, j = 0; i < Size; ++i, ++j)
+		{
+			if (i == _Where)
+			{
+				Temp[i] = _Value;
+				--j;
+			}
+			else
+				Temp[i] = Vector[j];
+		}
+		++Size;
+		/*
+			 // 선생님 방법
+			// 헤당위치 이전의 값을 복사
+			for(int i = 0; i < _where ; ++i)
+				Tem[i] = VEctor[i];
+
+				// 헤당위치 값 복사
+			Tmep[_where] = _value;
+			++Size;
+
+			for(int i = _where + 1; i < Size; ++i)
+				Temp[i] = Vector[i - 1];
+		*/
+
+		if (Vector)
+		{
+			delete Vector;
+			Vector = nullptr;
+		}
+
+		Temp[Size] = _Value;
+		Vector = Temp;
 	}
-
-	Temp[Size] = _Value;
-	Vector = Temp;
-
 }
 
 
@@ -114,41 +136,50 @@ void push_back(const int& _Value)
 {
 	// 수정후 
 
-	// 케퍼시티 = 수용량 ,사이즈 = 원소의 개수 
-	// 효율적으로 바꿀것
-	// 케퍼시티가 함수 호추할때마다가 아닌 size 와 케퍼시티가 값이 같아질때 증가 하는걸로 바꿀 것
+	//** 케퍼시티 = 수용량 ,사이즈 = 원소의 개수 
+	//** 효율적으로 바꿀것
+	//** 케퍼시티가 함수 호추할때마다가 아닌 size 와 케퍼시티가 값이 같아질때 증가 하는걸로 바꿀 것
+	//** 만약 더이상 수용할 공간이 없다면..
 	if (Size >= Capacity)
 	{
+		//** 4보다 작다면 1씩 증가 하고 크면 현재 수량의 1/2 만큼 추가
 		Capacity += (Capacity <= 3) ? 1 : Capacity >> 1; // 쉬프트 연산자로 나누기 2
 
+		//** 임시 저장소를 생성
 		int* Temp = new int[Capacity + 1];
 
-		// NULL 로 싹다 초기화 
+		//** NULL 로 싹다 초기화 
+		//** 생성된 공간을 초기화 함
 		for (int i = 0; i < Capacity; ++i)
 			Temp[i] = NULL;
 
+		//** 기존에 있던 값을 복사
 		for (int i = 0; i < Size; ++i)
 			Temp[i] = Vector[i];
 
+		//** 기존 값을 삭제 
 		if (Vector)
 		{
 			delete Vector;
 			Vector = nullptr;
 		}
 
+		//** 
 		Temp[Size] = _Value;
 		Vector = Temp;
 	}
 	else
+		//* 마지막 위치에 값 추가 
 		Vector[Size] = _Value;
-
 
 	cout << Vector[Size] << endl;
 	cout << " Size : " << Size << endl;
 	cout << " Capacity : " << Capacity << endl;
 	cout << endl;
 
+	// 추가된 원소의 최대값 증가
 	++Size;
+
 
 	/*
 		내가 한거
@@ -191,8 +222,8 @@ void push_back(const int& _Value)
 		}
 	*/
 }
-
-
+// call by value = 값 복사
+// call by 레퍼런스 = 주소값 복사
 // MSDL 
 
 /*
