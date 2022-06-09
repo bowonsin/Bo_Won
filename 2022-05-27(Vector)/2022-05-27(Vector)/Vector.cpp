@@ -72,19 +72,6 @@ void Insert(const int& _Where, const int& _Value)
 				Temp[i] = Vector[j];
 		}
 		++Size;
-		/*
-			 // 선생님 방법
-			// 헤당위치 이전의 값을 복사
-			for(int i = 0; i < _where ; ++i)
-				Tem[i] = VEctor[i];
-
-				// 헤당위치 값 복사
-			Tmep[_where] = _value;
-			++Size;
-
-			for(int i = _where + 1; i < Size; ++i)
-				Temp[i] = Vector[i - 1];
-		*/
 
 		if (Vector)
 		{
@@ -95,6 +82,26 @@ void Insert(const int& _Where, const int& _Value)
 		Temp[Size] = _Value;
 		Vector = Temp;
 	}
+	/*
+		if (Capacity <= Size)
+	Capacity += (Capacity <= 3) ? 1 : Capacity >> 1;
+
+	// ** 임시 저장소
+	int* Temp = new int[Capacity + 1];
+
+	// ** 초기화
+	for (int i = 0; i <= Capacity; ++i)
+	Temp[i] = NULL;
+
+	// ** 해당 위치 이전의 값을 복사.
+	for (int i = 0; i < _where; ++i)
+	Temp[i] = Vector[i];
+
+	// ** 해당 위치에 값 삽입.
+	Temp[_where] = _Value;
+	++Size;
+	*/
+
 }
 
 
@@ -104,8 +111,15 @@ void Erase(const int& _Where)
 	for (int i = _Where + (-1); i < Size - 1; ++i)
 	{
 		Vector[i] = Vector[i + 1];
-
 	}
+	/*
+	// ** 현재 원소의 최대값 감소.
+	--Size;
+
+	// ** 재정렬
+	for (int i = _where + (-1); i < Size; ++i)
+		Vector[i] = Vector[i + 1];
+		*/
 }
 
 int begin()
@@ -114,11 +128,13 @@ int begin()
 }
 int back()
 {
+	// ** 마지막 원소 반환
 	return Vector[Size - 1];
 }
 
 int front()
 {
+	// ** 0번째 원소 반환
 	return Vector[0];
 }
 int end()
@@ -128,6 +144,7 @@ int end()
 
 void pop_back()
 {
+	// ** 현재 원소의 최대값 감소.
 	Vector[Size] = NULL;
 	--Size;
 }
